@@ -53,13 +53,12 @@ class Manager < Employee
     end
 end
 
-ned = Employee.new("Ned", "Founder", 1000000)
-darren = Employee.new("Darren", "TA Manager", 78000, "Ned")
-shawna = Employee.new("Shawna", "TA", 12000, "Darren")
-david = Employee.new("David", "TA", 10000, "Darren")
+ned = Manager.new("Ned", "Founder", 1000000)
+darren = Manager.new("Darren", "TA Manager", 78000, ned)
+shawna = Employee.new("Shawna", "TA", 12000, darren)
+david = Employee.new("David", "TA", 10000, darren)
 
-# p ned.bonus(5)
-# p darren.bonus(4)
-# p david.bonus(3)
-# p shawna.bonus(3)
-p darren.boss
+p ned.bonus(5)
+p darren.bonus(4)
+p david.bonus(3)
+p shawna.bonus(3)

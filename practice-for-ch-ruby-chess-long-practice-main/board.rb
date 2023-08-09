@@ -4,15 +4,21 @@ class Board
         @board = Array.new(8) {Array.new(8)}
         @null_piece = NullPiece
         
-        @board.each_with_index do |row, i|
-            if i < 2
-                row.each {|ele| ele = Piece.new}
-            elsif i > 5
-                row.each {|ele| ele = Piece.new}
-            else
-                row.each {|ele| ele = NullPiece}
+        (0..7).each do |col|
+            (0..1).each do |row|
+                @board[row][col] = Piece.new('white', self.board, [row, col])
+            end
+
+            # (2..5).each do |row|
+
+            # end
+
+            (6..7).each do |row|
+                @board[row][col] = Piece.new('black', self.board, [row, col])
             end
         end
+
+
     end
 
     def [](pos)
@@ -46,6 +52,6 @@ end
 
 class NullPiece < Piece
     def initialize
-        
+        nil
     end
 end
