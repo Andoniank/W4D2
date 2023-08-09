@@ -13,7 +13,7 @@ class Piece
     end
 
     def inspect 
-        return "PieceID:#{self.object_id}-Color:#{self.color}-Position:#{self.pos}"
+        return "PieceID:#{self.class}-Color:#{self.color}-Position:#{self.pos}"
     end
 
 end
