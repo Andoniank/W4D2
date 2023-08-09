@@ -11,28 +11,27 @@ module Slideable
         DIAGONAL_DIRS
     end
 
-    def moves(pos)
-        
-    end
-
-    def move_dirs(pos)
-        moves = []
-        straight_dirs.each do |x, y|
+    def moves
+        possible_moves = []
+        move_dirs.each do |x, y|
             # while inbounds keep iterating through straight_dirs, otherwise move on to the next position
+            new_x = self.pos[0]
+            new_y = self.pos[1]
             while new_x.between?(0, 7) && new_y.between?(0, 7)
-                new_x = pos[0] + x
-                new_y = pos[1] + y
+                new_x += x
+                new_y += y
                 if @board[new_x][new_y].is_a?(NullPiece)      # checks to see if the new position is a NullPiece 
-                    moves << [new_x, new_y]                   
+                    possible_moves << [new_x, new_y]                   
                 end 
-                if @board[new_x][new_y].color == self.color   # if same color, dont want to add the position to moves
+                if @board[new_x][new_y].color == self.color   # if same color, dont want to add the position to possible_moves
                     break
                 else                                          # if opponents color, include position and break
-                    moves << [new_x, new_y]
+                    possible_moves << [new_x, new_y]
                     break
                 end
             end
         end
-        moves
+        possible_moves
     end
+
 end

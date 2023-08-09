@@ -13,17 +13,18 @@ class Piece
 end
 
 class NullPiece < Piece
-    # include Singleton
-    # def initialize
-        
-    # end
+    include Singleton
+    def initialize
+        @color = :grey
+        @symbol = nil # not sure
+    end
 end
 
 class Bishop < Piece
     include Slideable
 
-    def move_dirs
-        Slideable.diagonal_dirs
+    def move_dirs(pos)
+        diagonal_dirs
     end
 end
 
@@ -31,7 +32,7 @@ class Rook < Piece
     include Slideable
 
     def move_dirs
-        Slideable.straight_dirs
+        straight_dirs
     end
 end
 
@@ -39,7 +40,7 @@ class Queen < Piece
     include Slideable
 
     def move_dirs
-        Slideable.straight_dirs + Slideable.diagonal_dirs
+        diagonal_dirs + straight_dirs
     end
 end
 

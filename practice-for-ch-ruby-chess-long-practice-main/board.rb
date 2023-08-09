@@ -35,15 +35,12 @@ class Board
 
 
     def move_piece(start_pos, end_pos)
-        s_row, s_col = start_pos
-        e_row, e_col = end_pos
-        if @board[s_row][s_col] == nil # out of bounds or blocked
+        if self[start_pos] == nil # out of bounds or blocked
             raise "cannot move piece"
         else 
-            @board[e_row][e_col] = @board[s_row][s_col] # a => b
-            @board[e_row][e_col].pos = [e_row, e_col]
-            @board[s_row][s_col] = nil
-            
+            self[end_pos] = self[start_pos] # a => b
+            self[end_pos].pos = end_pos
+            self[start_pos] = nil
         end
     end
 end
