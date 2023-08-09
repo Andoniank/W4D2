@@ -38,7 +38,7 @@ class Bishop < Piece
         #     @symbol = :♝
         # end
     end  
-
+    protected
     def move_dirs
         diagonal_dirs
     end
@@ -52,7 +52,7 @@ class Rook < Piece
 
         # @symbol = color == :black ? ♖ : ♜
     end  
-    
+    protected
     def move_dirs
         straight_dirs
     end
@@ -66,20 +66,33 @@ class Queen < Piece
 
         # @symbol = color == :black ? ♕ : ♛
     end  
-
+    protected
     def move_dirs
         diagonal_dirs + straight_dirs
     end
 end
 
-class King
-    
+class King < Piece
+    include Stepable
 
+    def initialize(color, board, pos)
+        super
+    end
+
+    def move_diffs
+        king_dirs
+    end
 end
 
-class Knight
+class Knight < Piece
+    include Stepable
+    def initialize(color, board, pos)
+        super
+    end
 
-
+    def move_diffs
+        knight_dirs
+    end
 end
 
 # def inspect 

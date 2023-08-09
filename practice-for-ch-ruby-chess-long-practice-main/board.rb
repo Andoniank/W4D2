@@ -8,7 +8,7 @@ class Board
         
         (0..7).each do |col|
             (0..1).each do |row|
-                @board[row][col] = Bishop.new(:white, self, [row, col])
+                @board[row][col] = Rook.new(:white, self, [row, col])
             end
 
             (2..5).each do |row|
