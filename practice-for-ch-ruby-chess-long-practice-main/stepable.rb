@@ -19,7 +19,6 @@ module Stepable
     def moves
         possible_moves = []
         move_diffs.each do |x, y|
-            # debugger
             new_x = self.pos[0] + x
             new_y = self.pos[1] + y
             if inbounds(new_x, new_y)
@@ -39,7 +38,6 @@ module Stepable
 
     def inbounds(new_x, new_y)
         new_x.between?(0, 7) && new_y.between?(0, 7)
-
     end
 
 end

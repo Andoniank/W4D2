@@ -78,7 +78,7 @@ class King < Piece
     def initialize(color, board, pos)
         super
     end
-
+    protected
     def move_diffs
         king_dirs
     end
@@ -89,15 +89,64 @@ class Knight < Piece
     def initialize(color, board, pos)
         super
     end
-
+    protected
     def move_diffs
         knight_dirs
     end
 end
 
-# def inspect 
-#     return "PieceID:#{self.object_id}-Color:#{self.color}-Position:#{self.pos}"
-# end
-# def inspect
-#     return "<PieceID:#{self.object_id} Color:#{self.color} Pos:#{self.pos} Symbol:#{symbol}>"
-# end
+class Pawn < Piece
+    WHITE_P_ATK = [[1,-1], [1,1]]
+    BLACK_P_ATK = [[-1,-1], [-1,1]]
+    def initialize(color, board, pos)
+        super
+    end
+
+    def moves
+        possible_moves = []
+        if at_start_row?
+            dirs = [forward_dir, forward_steps] # [], []
+        else
+            dirs = [forward_dir] # []
+        end
+        dirs.each do |x|
+            new_x = self.pos[0] + x
+            # new_y = self.pos[1] + y
+            if new_x.between?(0, 7)
+                case self.board[[new_x, self.pos[1]]].color
+                when :none     # checks to see if the new position is a NullPiece 
+                    possible_moves << [new_x, self.pos[1]]                   
+                else       # if opponents color, include position and break
+                    next
+                end
+            end
+        end
+        possible_moves
+    end
+
+    # def inbounds(new_x, new_y)
+    #     new_x.between?(0, 7) && new_y.between?(0, 7)
+    # end
+
+    protected
+    def at_start_row?
+        if color == :white 
+            self.pos[0] == 1
+        else
+            self.pos[0] == 6
+        end
+    end
+
+    def forward_dir
+        color == :white ? 1 : -1 # [1,0] : [-1,0]
+    end
+
+    def forward_steps
+        color == :white ? 2 : -2 # [2,0] : [-2,0]
+    end
+
+    def side_attacks
+
+    end
+
+end
