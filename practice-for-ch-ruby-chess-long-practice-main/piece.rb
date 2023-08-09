@@ -98,6 +98,7 @@ end
 class Pawn < Piece
     WHITE_P_ATK = [[1,-1], [1,1]]
     BLACK_P_ATK = [[-1,-1], [-1,1]]
+
     def initialize(color, board, pos)
         super
     end
@@ -105,13 +106,13 @@ class Pawn < Piece
     def moves
         possible_moves = []
         if at_start_row?
-            dirs = [forward_dir, forward_steps] # [], []
+            dirs = [forward_dir, forward_steps] 
         else
-            dirs = [forward_dir] # []
+            dirs = [forward_dir]
         end
         dirs.each do |x|
             new_x = self.pos[0] + x
-            # new_y = self.pos[1] + y
+            
             if new_x.between?(0, 7)
                 case self.board[[new_x, self.pos[1]]].color
                 when :none     # checks to see if the new position is a NullPiece 
@@ -121,14 +122,12 @@ class Pawn < Piece
                 end
             end
         end
-        possible_moves
+        possible_moves + side_attacks
     end
 
-    # def inbounds(new_x, new_y)
-    #     new_x.between?(0, 7) && new_y.between?(0, 7)
-    # end
 
-    protected
+
+    private
     def at_start_row?
         if color == :white 
             self.pos[0] == 1
@@ -138,15 +137,33 @@ class Pawn < Piece
     end
 
     def forward_dir
-        color == :white ? 1 : -1 # [1,0] : [-1,0]
+        color == :white ? 1 : -1 
     end
 
     def forward_steps
-        color == :white ? 2 : -2 # [2,0] : [-2,0]
+        color == :white ? 2 : -2 
     end
 
     def side_attacks
+        if color == :white
+            dirs = WHITE_P_ATK
+        else 
+            dirs = BLACK_P_ATK
+        end
 
+        possible_attacks = []
+        dirs.each do |x, y|
+            new_x = self.pos[0] + x
+            new_y = self.pos[1] + y
+            if inbounds(new_x, new_y)
+                possible_attacks << [new_x, new_y] if self.board[[new_x, new_y]].color != self.color
+            end
+        end
+        possible_attacks
+    end
+    
+    def inbounds(new_x, new_y)
+        new_x.between?(0, 7) && new_y.between?(0, 7)
     end
 
 end

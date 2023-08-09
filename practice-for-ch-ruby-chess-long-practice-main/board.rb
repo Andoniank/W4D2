@@ -7,15 +7,15 @@ class Board
         
         
         (0..7).each do |col|
-            (0..1).each do |row|
+            (0..3).each do |row|
                 @board[row][col] = Pawn.new(:white, self, [row, col])
             end
 
-            (2..5).each do |row|
-                @board[row][col] = NullPiece.instance
-            end
+            # (2..5).each do |row|
+            #     @board[row][col] = NullPiece.instance
+            # end
 
-            (6..7).each do |row|
+            (4..7).each do |row|
                 @board[row][col] = Piece.new(:black, self, [row, col])
             end
         end
