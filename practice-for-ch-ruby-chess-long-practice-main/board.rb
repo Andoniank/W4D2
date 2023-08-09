@@ -1,3 +1,5 @@
+require_relative 'piece'
+
 class Board 
     attr_reader :board
     def initialize
@@ -46,18 +48,3 @@ class Board
     end
 end
 
-class Piece
-    attr_reader :color, :board
-    attr_accessor :pos
-    def initialize(color, board, pos)
-        @color = color
-        @board = board 
-        @pos = pos
-    end
-end
-
-class NullPiece < Piece
-    def initialize
-        nil
-    end
-end
