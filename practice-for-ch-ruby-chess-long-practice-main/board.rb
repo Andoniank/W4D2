@@ -1,5 +1,5 @@
 class Board 
-
+    attr_reader :board
     def initialize
         @board = Array.new(8) {Array.new(8)}
         @null_piece = NullPiece
@@ -33,16 +33,22 @@ class Board
 
 
     def move_piece(start_pos, end_pos)
-        if @board[start_pos] == @null_piece || @board[end_pos] != @null_piece
+        s_row, s_col = start_pos
+        e_row, e_col = end_pos
+        if @board[s_row][s_col] == nil # out of bounds or blocked
             raise "cannot move piece"
         else 
-            @board[start_pos] = @board[end_pos]
+            @board[e_row][e_col] = @board[s_row][s_col] # a => b
+            @board[e_row][e_col].pos = [e_row, e_col]
+            @board[s_row][s_col] = nil
+            
         end
     end
 end
 
 class Piece
-    attr_reader :color, :board, :pos
+    attr_reader :color, :board
+    attr_accessor :pos
     def initialize(color, board, pos)
         @color = color
         @board = board 
